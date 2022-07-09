@@ -2,36 +2,19 @@ import json
 import os
 from logic import create_and_save_initial_data, body_measurements, set_macros
 
-
-def check_data():
+def check_data(status=True):
     try:
         file_exists = os.path.exists("Local_data.json")
         if file_exists is True:
+
             return
     except IOError:
         var = False
     # if json file containing user data does not exist function below creates json file and saves data on it
     create_and_save_initial_data()
 
+check_data()
 
-def sign_in_up():
-    check_data()
-    # print("1 ) Sign in\n----------")
-    # print("2 ) Sign up\n----------")
-    # print("3 ) Skip\n----------")
-    # choice = input("enter operation :: ")
-    # if choice in ["1", "sign in", "signin"]:
-    #     signin_logic()
-    # elif choice in ["2", "sign up", "signup"]:
-    #
-    # elif choice in [3, "skip"]:
-    #     check_data()
-    # else:
-    #     print("\n|||please input valid operation|||\n")
-    #     sign_in_up()
-
-
-sign_in_up()
 
 
 # class below assign's data to class attributes
@@ -111,6 +94,8 @@ user_measurements = Measurements(bmi, lbm, bmr, mpr)
 set_macros()
 
 
+
+
 class Diet:
     def __init__(self, protein, carbs, fats, tdee, total_kcal):
         self.fats = fats
@@ -136,3 +121,6 @@ user_macros = Diet(protein, carbs, fats, tdee, total_kcal)
 #       f"calculated energy expenditure : {tdee} kcal\n")
 # if user.goal == "lose":
 #     print(f"calorie deficit of : {tdee - total_kcal} kcal per day")
+
+exit(interface())
+
