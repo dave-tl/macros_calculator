@@ -20,7 +20,7 @@ def create_and_save_initial_data():
             exercise_per_week_in = input("weekly active days : ")
             if int(exercise_per_week_in) in range(1, 8):
                 break
-        goal_in = input("goal : "),
+        goal_in = input("goal : ")
         while goal_in not in ["gain", "maintain", "lose"]:
             goal_in = input("goal : ")
             if goal_in in ["gain", "maintain", "lose"]:
@@ -42,7 +42,7 @@ def create_and_save_initial_data():
 
 
 def body_measurements():
-    from macro_calc import user, unit
+    from data_creation import user, unit
     weight = user.weight * unit.w_multiplier
     height = user.height * unit.h_multiplier
     weight_converter = unit.w_divider
@@ -93,7 +93,7 @@ def body_measurements():
 
 
 def set_macros():
-    from macro_calc import user, unit, user_measurements
+    from data_creation import user, unit, user_measurements
 
     PROTEIN_KCAL = 4
     CARBS_KCAL = 4
@@ -174,9 +174,4 @@ def set_macros():
     (calculate_macros(protein, carbs, fats))
 
 
-def password():
-    print("\nPassword should contain\n--------------------"
-          "\none capital letter \none lower case\none number "
-          "\nshould be at least 8 characters\n")
-    Password = input("Create password: ")
-    return Password
+
