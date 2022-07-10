@@ -6,10 +6,28 @@ from datetime import datetime
 current_date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
 
+def clone_data(email):
+    # clones data on signin from offsite_database.json to Local_data.json
+    with open('offsite_database.json', 'r') as fp:
+        temp = json.load(fp)
+        for array in temp['Users']:
+            key = (array.keys())
+            key_val = (array.values())
+            if list(key) == ["email-" + email]:
+                for k in key_val:
+                    kv_dict = k
+
+    with open('Local_data.json', 'w') as fp:
+        json.dump(kv_dict, fp, indent=4)
+    print("data pulled successfully")
+    from interface import interface
+    interface()
+
+
 def main(status):
     def create_and_save_initial_data():
         with open('Local_data.json', 'w') as fp:
-            units = input("choose system of measurement : 1)imperial  2)metric ")
+            units = input("choose system of measurement : 1)imperial  2)metric")
             weight_in = input("weight : ")
             height_in = input("height : ")
             age_in = input("age : ")
@@ -198,7 +216,6 @@ def main(status):
                 print("user data corrupted")
                 create_and_save_initial_data()
 
-
         # if json file containing user data does not exist function below creates json file and saves data on it
 
     check_data()
@@ -298,4 +315,3 @@ def main(status):
     #       f"calculated energy expenditure : {tdee} kcal\n")
     # if user.goal == "lose":
     #     print(f"calorie deficit of : {tdee - total_kcal} kcal per day")
-
