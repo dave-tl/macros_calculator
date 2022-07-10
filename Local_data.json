@@ -1,0 +1,21 @@
+{
+    "units": "2",
+    "weight": "88",
+    "height": "183",
+    "age": "22",
+    "gender": "male",
+    "exercise_per_week": "4",
+    "goal": "lose",
+    "body_fat_pct": 22.684,
+    "body_mass_index": 26.17,
+    "lean_body_mass": 67.93003552896002,
+    "basal_metabolic_rate": 1886.5952000000002,
+    "min_protein_requirements": 69.47389997280001,
+    "protein": 1178.1312,
+    "carbs": 867.8080000000001,
+    "fats": 528.392,
+    "total_kcal": 2574.3312000000005,
+    "tdee": 2924.2225600000006,
+    "email": "dato@gmail.com",
+    "password": "Qwer4321"
+}
