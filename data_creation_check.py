@@ -3,6 +3,7 @@ import os
 import json
 from datetime import datetime
 from interface import interface
+
 current_date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
 
@@ -22,8 +23,7 @@ def clone_data(email):
     print("data pulled successfully")
 
 
-
-def main(status):
+def main(status="check integrity"):
     def create_and_save_initial_data():
         with open('Local_data.json', 'w') as fp:
             units = input("choose system of measurement : 1)imperial  2)metric")
@@ -100,11 +100,11 @@ def main(status):
         with open('Local_data.json', "r") as rf:
             ex = json.load(rf)
             local_user = {
-                "body_mass_index": body_mass_index(),
-                "body_fat_pct": estimate_body_fat(),
-                "lean_body_mass": lean_body_mass(),
-                "basal_metabolic_rate": basal_metabolic_rate(),
-                "min_protein_requirements": min_protein_requirements(),
+                "body_mass_index": str(body_mass_index()),
+                "body_fat_pct": str(estimate_body_fat()),
+                "lean_body_mass": str(lean_body_mass()),
+                "basal_metabolic_rate": str(basal_metabolic_rate()),
+                "min_protein_requirements": str(min_protein_requirements()),
             }
             ex.update(local_user.items())
             with open('Local_data.json', 'w') as fp:
@@ -136,13 +136,13 @@ def main(status):
         def total_daily_energy_expenditure():
 
             if user.exercise_per_week < 2:
-                tdee = user_measurements.basal_metabolic_rate * 1.2
+                tdee = float(user_measurements.basal_metabolic_rate) * 1.2
             elif user.exercise_per_week in [2, 3]:
-                tdee = user_measurements.basal_metabolic_rate * 1.375
+                tdee = float(user_measurements.basal_metabolic_rate) * 1.375
             elif user.exercise_per_week in [4, 5]:
-                tdee = user_measurements.basal_metabolic_rate * 1.55
+                tdee = float(user_measurements.basal_metabolic_rate) * 1.55
             else:
-                tdee = user_measurements.basal_metabolic_rate * 1.725
+                tdee = float(user_measurements.basal_metabolic_rate) * 1.725
             return tdee
 
         total_daily_energy_expenditure()
@@ -177,11 +177,11 @@ def main(status):
             with open('Local_data.json', "r") as rf:
                 ex = json.load(rf)
                 local_user = {
-                    "protein": protein,
-                    "carbs": carbs,
-                    "fats": fats,
-                    "total_kcal": total_kcal,
-                    "tdee": tdee,
+                    "protein": str(protein),
+                    "carbs": str(carbs),
+                    "fats": str(fats),
+                    "total_kcal": str(total_kcal),
+                    "tdee": str(tdee),
                 }
                 ex.update(local_user.items())
                 with open('Local_data.json', 'w') as fp:
@@ -214,8 +214,10 @@ def main(status):
             except IOError:
                 print("user data corrupted")
                 create_and_save_initial_data()
+        elif status_of == "check_integrity":
+            return
 
-        # if json file containing user data does not exist function below creates json file and saves data on it
+    # if json file containing user data does not exist function below creates json file and saves data on it
 
     check_data()
 
@@ -307,10 +309,59 @@ def main(status):
     tdee = from_data.get("tdee")
     user_macros = Diet(protein, carbs, fats, tdee, total_kcal)
 
-    # print(f"your macros in grams \n"
-    #       f"Suggested Protein intake : {protein}grams\n"
-    #       f"Suggested Carbohydrate intake : {carbs}grams\n"
-    #       f"Suggested fat intake : {fats}grams\n"
-    #       f"calculated energy expenditure : {tdee} kcal\n")
-    # if user.goal == "lose":
-    #     print(f"calorie deficit of : {tdee - total_kcal} kcal per day")
+
+class AllData:
+
+    def __init__(self, body_mass_index, lean_body_mass, basal_metabolic_rate,
+                 min_protein_requirements, protein, carbs,
+                 fats, tdee, total_kcal, units, weight, height,
+                 age, gender, exercise_per_week, goal, body_fat_pct,
+                 email, firstname, lastname, ):
+        self.body_mass_index = body_mass_index
+        self.lean_body_mass = lean_body_mass
+        self.basal_metabolic_rate = basal_metabolic_rate
+        self.min_protein_requirements = min_protein_requirements
+        self.fats = fats
+        self.carbs = carbs
+        self.protein = protein
+        self.tdee = tdee
+        self.total_kcal = total_kcal
+        self.units = units
+        self.weight = float(weight)
+        self.height = float(height)
+        self.age = int(age)
+        self.gender = str(gender)
+        self.exercise_per_week = int(exercise_per_week)
+        self.goal = goal
+        self.body_fat_pct = body_fat_pct
+        self.email = email
+        self.first_name = first_name
+        self.last_name = last_name
+
+
+with open('Local_data.json') as data_file:
+    from_data = json.load(data_file)
+bmi = from_data.get("body_mass_index")
+lbm = from_data.get("lean_body_mass")
+bmr = from_data.get("basal_metabolic_rate")
+mpr = from_data.get("min_protein_requirements")
+protein = from_data.get("protein")
+carbs = from_data.get("carbs")
+fats = from_data.get("fats")
+total_kcal = from_data.get("total_kcal")
+tdee = from_data.get("tdee")
+units = from_data.get("units")
+weight = from_data.get("weight")
+height = from_data.get("height")
+age = from_data.get("age")
+gender = from_data.get("gender")
+exercise_per_week = from_data.get("exercise_per_week")
+goal = from_data.get("goal")
+body_fat_pct = from_data.get("body_fat_pct")
+email = from_data.get("email")
+first_name = from_data.get("first_name")
+last_name = from_data.get("last_name")
+alldata = AllData(bmi, lbm, bmr, mpr, protein, carbs, fats, tdee, total_kcal,
+                  units, weight, height, age,
+                  gender, exercise_per_week, goal, body_fat_pct, email,
+                  first_name, last_name)

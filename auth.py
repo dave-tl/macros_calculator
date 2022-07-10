@@ -9,6 +9,8 @@ def signup_logic():
     in data creation da check which creates macros using all the provided user data the all data gets dumped to
     ofcourse the .... offsite_database.json which is definitely offsite
     """
+    firstname = input("First Name::")
+    lastname = input("Last Name::")
     email = email_validator()
     item_data = {}
     with open('offsite_database.json', 'r') as fp:
@@ -24,6 +26,8 @@ def signup_logic():
     with open('Local_data.json', "r") as rf:
         ex = json.load(rf)
         local_user = {
+            "first_name": firstname,
+            "last_name": lastname,
             "email": email,
             "password": pw,
         }
