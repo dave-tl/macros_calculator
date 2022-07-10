@@ -2,7 +2,7 @@ import json
 import os
 import json
 from datetime import datetime
-
+from interface import interface
 current_date = datetime.today().strftime('%Y-%m-%d %H:%M:%S')
 
 
@@ -20,8 +20,7 @@ def clone_data(email):
     with open('Local_data.json', 'w') as fp:
         json.dump(kv_dict, fp, indent=4)
     print("data pulled successfully")
-    from interface import interface
-    interface()
+
 
 
 def main(status):

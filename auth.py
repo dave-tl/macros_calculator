@@ -40,29 +40,6 @@ def signup_logic():
         json.dump(temp, f, indent=4)
     print("----------\nregistered successfully\n|||||||||||||||||||||||||")
 
-        #
-        # except KeyError:
-        #     pw = password_validator(email=email)
-        #     main("signup")
-        #     with open('Local_data.json', "r") as rf:
-        #         ex = json.load(rf)
-        #         local_user = {
-        #             "email": email,
-        #             "password": pw,
-        #         }
-        #         ex.update(local_user.items())
-        #         with open('Local_data.json', 'w') as fp:
-        #             json.dump(ex, fp, indent=4)
-        #
-        #     with open('Local_data.json', "r") as rf:
-        #         ex = json.load(rf)
-        #     item_data["email-" + email] = ex
-        #     temp["Users"].append(item_data)
-        #     ex.update()
-        #     with open("offsite_database.json", 'w') as f:
-        #         json.dump(temp, f, indent=4)
-        #     print("----------\nregistered successfully\n|||||||||||||||||||||||||")
-
 
 def password_validator(email=None):
     print("\nPassword should contain\n--------------------"
@@ -135,6 +112,8 @@ def signin_logic():
                         print(10 * "-" + "\nLogin Successful\n" + 10 * "-")
                         from data_creation_check import clone_data
                         clone_data(email_signin)
+                        return
                 else:
                     pass
+        print("User not found")
         signin_logic()
